@@ -17,6 +17,12 @@ export const TID = {
   embedSnippet: 'embed-snippet',
   embedToolbar: 'embed-toolbar',
   errorContainer: 'error-container',
+  githubConnect: 'github-connect',
+  githubFileList: 'github-file-list',
+  githubRepo: 'github-repo',
+  githubSave: 'github-save',
+  githubToggle: 'github-toggle',
+  githubToken: 'github-token',
   themeToggleButton: 'theme-toggle-button'
 } as const;
 

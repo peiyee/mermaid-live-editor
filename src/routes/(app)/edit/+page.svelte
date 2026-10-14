@@ -3,6 +3,7 @@
   import Card from '$/components/Card/Card.svelte';
   import DiagramDocButton from '$/components/DiagramDocumentationButton.svelte';
   import Editor from '$/components/Editor.svelte';
+  import GitHubPanel from '$/components/GitHub/GitHubPanel.svelte';
   import EnhancedEditsButton from '$/components/EnhancedEditsButton.svelte';
   import History from '$/components/History/History.svelte';
   import { startAutoSave } from '$/components/History/historyState.svelte';
@@ -22,6 +23,7 @@
   import VersionSecurityToolbar from '$/components/VersionSecurityToolbar.svelte';
   import View from '$/components/View.svelte';
   import type { EditorMode, Tab } from '$/types';
+  import { TID } from '$/constants';
   import { shouldShowEditorChooser } from '$/util/migration/domainMigration';
   import { PanZoomState } from '$/util/panZoom';
   import { env } from '$/util/env';
@@ -30,6 +32,7 @@
   import { getContactSalesUrl, initHandler } from '$/util/util';
   import { onMount } from 'svelte';
   import CodeIcon from '~icons/custom/code';
+  import RepoIcon from '~icons/mdi/source-repository';
   import HistoryIcon from '~icons/material-symbols/history';
   import GearIcon from '~icons/material-symbols/settings-outline-rounded';
 
@@ -70,6 +73,7 @@
   onMount(() => startAutoSave());
 
   let isHistoryOpen = $state(false);
+  let isGitHubOpen = $state(false);
 
   let editorPane: Resizable.Pane | undefined;
   $effect(() => {
@@ -95,6 +99,14 @@
   <Navbar mobileToggle={isMobile ? mobileToggle : undefined}>
     <Toggle bind:pressed={isHistoryOpen} size="sm" title="History" aria-label="History">
       <HistoryIcon />
+    </Toggle>
+    <Toggle
+      bind:pressed={isGitHubOpen}
+      size="sm"
+      title="Save to GitHub"
+      aria-label="GitHub"
+      data-testid={TID.githubToggle}>
+      <RepoIcon />
     </Toggle>
     <Share />
     {#if env.isEnabledMermaidChartLinks}
@@ -167,6 +179,12 @@
           <Resizable.Handle class="ml-1 hidden opacity-0 sm:block" />
           <Resizable.Pane minSize={15} defaultSize={30} class="hidden h-full grow flex-col sm:flex">
             <History />
+          </Resizable.Pane>
+        {/if}
+        {#if isGitHubOpen}
+          <Resizable.Handle class="ml-1 hidden opacity-0 sm:block" />
+          <Resizable.Pane minSize={15} defaultSize={30} class="hidden h-full grow flex-col sm:flex">
+            <GitHubPanel />
           </Resizable.Pane>
         {/if}
       </Resizable.PaneGroup>

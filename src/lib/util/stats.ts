@@ -94,6 +94,7 @@ const delaysPerEvent = {
   copyClipboard: defaultDelay,
   copyMarkdown: defaultDelay,
   download: defaultDelay,
+  github: defaultDelay,
   history: defaultDelay,
   loadGist: defaultDelay,
   loadSampleDiagram: defaultDelay,
